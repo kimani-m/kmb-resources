@@ -1,0 +1,12 @@
+{
+  "full_name": "Kimani Mbugua",
+  "email": "kimani.mbugua@kimstrad.com",
+  "username": "kimani.mbugua",
+  "project_name": "Python Boilerplate",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('_', '-') }}",
+  "project_short_description": "{{ cookiecutter.project_slug }} contains all the boilerplate you need to create a what you need.",
+  "version": "0.1.0",
+  "cloud_env": ["AWS", "Azure", "GCP"],
+  "ci_cd_tool": ["Azure DevOps", "BitBucket", "GitHub"],
+  "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"]
+}
