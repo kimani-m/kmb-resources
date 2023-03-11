@@ -1,0 +1,13 @@
+packages:
+  - package: dbt-labs/dbt_utils
+    version: 1.0.0
+  {%- if cookiecutter.data_quality == "y" %}
+  - package: calogica/dbt_expectations
+    version: 0.8.2
+  {%- endif %}
+  {%- if cookiecutter.data_observability == "y" %}
+  - package: brooklyn-data/dbt_artifacts
+    version: 2.2.2
+  - package: elementary-data/elementary
+    version: 0.7.2
+  {%- endif %}

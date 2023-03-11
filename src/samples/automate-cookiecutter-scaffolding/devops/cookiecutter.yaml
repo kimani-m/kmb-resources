@@ -1,0 +1,127 @@
+# Cookiecutter pipeline for data applications
+
+parameters:
+- name: templateOrgName
+  displayName: Cookiecutter Organisation Name
+  type: string
+  default: kimstrad
+- name: templateProjectName
+  displayName: Cookiecutter Project Name
+  type: string
+  default: datahub
+- name: templateRepoName
+  displayName: Cookiecutter Repo Name
+  type: string
+  default: cookiecutter-data-package
+- name: templateBranchRef
+  displayName: Cookiecutter Branch Name
+  type: string
+  default: scaffold-cloud-data-app
+- name: templateDir
+  displayName: Cookiecutter template directory
+  type: string
+  default: templates
+- name: templateName
+  displayName: Cookiecutter template name
+  type: string
+  default: simple-app
+- name: targetOrgName
+  displayName: Target Organisation Name
+  type: string
+  default: kimstrad
+- name: targetProjectName
+  displayName: Target Project Name
+  type: string
+  default: datahub
+- name: targetRepoName
+  displayName: Target Repo Name
+  type: string
+  default: data-project-01
+- name: targetBranchName
+  displayName: Target Branch Name
+  type: string
+  default: initial-setup
+
+variables:
+  user_email : kimani.mbugua@kimstrad.com
+  user_name: kimani.mbugua
+  template_root: cookiecutter
+  config_dir: config
+  config_file: template_settings.yaml
+  python_version: 3.10
+
+trigger:
+- none
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- checkout: self
+- checkout: git://${{ parameters.templateProjectName }}/${{ parameters.templateRepoName }}@refs/heads/${{ parameters.templateBranchRef }}
+  path: ${{ variables.template_root }}
+- checkout: git://${{ parameters.targetProjectName }}/${{ parameters.targetRepoName }}@refs/heads/main
+
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '$(python_version)'
+  displayName: 'Use Python $(python_version)'
+      
+- script: |
+    python -m pip install --upgrade pip
+    pip install cookiecutter
+    cookiecutter --config-file $(Agent.WorkFolder)/1/$TEMPLATE_ROOT/$CONFIG_DIR/$CONFIG_FILE $(Agent.WorkFolder)/1/$TEMPLATE_ROOT/$TEMPLATE_DIR/$TEMPLATE_NAME -o $TARGET_BRANCH_NAME --no-input
+  displayName: 'Generate project from template'
+  workingDirectory: $(Build.ArtifactStagingDirectory)
+  env:
+    CONFIG_DIR: ${{ variables.config_dir }} 
+    CONFIG_FILE: ${{ variables.config_file }} 
+    TEMPLATE_ROOT: ${{ variables.template_root }}
+    TEMPLATE_DIR: ${{ parameters.templateDir }}
+    TEMPLATE_NAME: ${{ parameters.templateName }}
+    TARGET_BRANCH_NAME: ${{ parameters.targetBranchName }}
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo "Structure of work folder of this pipeline:"
+      tree $(Agent.WorkFolder)/1
+
+      echo "Build.ArtifactStagingDirectory:" 
+      echo "$(Build.ArtifactStagingDirectory)"
+
+      echo "Build.SourcesDirectory:"
+      echo "$(Build.SourcesDirectory)"
+
+- script: |
+    cd $TARGET_BRANCH_NAME
+    git config --global user.email $USER_EMAIL
+    git config --global user.name $USER_NAME
+    git config --global init.defaultBranch main
+    git init
+    git remote add origin https://$SYSTEM_ACCESSTOKEN@dev.azure.com/$TARGET_ORG_NAME/$TARGET_PROJ_NAME/_git/$TARGET_REPO_NAME
+    git show-ref
+    git checkout -b $TARGET_BRANCH_NAME
+    git add --all
+    git commit -m "Scaffold repo using cookiecutter"
+    git fetch --all
+    git merge -s recursive -X ours origin/$TARGET_BRANCH_NAME --allow-unrelated-histories
+    git push -f --set-upstream origin $TARGET_BRANCH_NAME
+  displayName: 'Push new repository to Azure DevOps'
+  workingDirectory: $(Build.ArtifactStagingDirectory)
+  env:
+    SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+    USER_EMAIL: ${{ variables.user_email }}
+    USER_NAME: ${{ variables.user_name }}
+    TARGET_ORG_NAME: ${{ parameters.targetOrgName }}
+    TARGET_PROJ_NAME: ${{ parameters.targetProjectName }}
+    TARGET_REPO_NAME: ${{ parameters.targetRepoName }}
+    TARGET_BRANCH_NAME: ${{ parameters.targetBranchName }}
+
+- task: PublishBuildArtifacts@1
+  displayName: "Publish project"
+  inputs:
+    PathtoPublish: $(Build.ArtifactStagingDirectory)
+    ArtifactName: 'projects'
+    publishLocation: 'Container'
+  enabled: true
