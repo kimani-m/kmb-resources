@@ -5,7 +5,7 @@ def main():
 
     root_dir = os.path.abspath(os.path.curdir)
     environment = "{{ cookiecutter.environment }}".lower()    
-    setup_environment(root_dir, environment, drop_parent=True, debug=True)
+    setup_environment(root_dir, environment, drop_parent=True, debug=False)
 
     return 0
 

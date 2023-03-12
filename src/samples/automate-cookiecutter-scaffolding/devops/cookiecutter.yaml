@@ -1,34 +1,29 @@
 # Cookiecutter pipeline for data applications
 
 parameters:
-- name: templateOrgName
-  displayName: Cookiecutter Organisation Name
-  type: string
-  default: kimstrad
 - name: templateProjectName
-  displayName: Cookiecutter Project Name
+  displayName: Template Project Name
   type: string
   default: datahub
 - name: templateRepoName
-  displayName: Cookiecutter Repo Name
+  displayName: Template Project Name
   type: string
   default: cookiecutter-data-package
 - name: templateBranchRef
-  displayName: Cookiecutter Branch Name
+  displayName: Template Branch Name
   type: string
   default: scaffold-cloud-data-app
 - name: templateDir
-  displayName: Cookiecutter template directory
+  displayName: Template directory
   type: string
   default: templates
 - name: templateName
-  displayName: Cookiecutter template name
+  displayName: Template Name
   type: string
-  default: simple-app
+  default: data-app
 - name: targetOrgName
   displayName: Target Organisation Name
   type: string
-  default: kimstrad
 - name: targetProjectName
   displayName: Target Project Name
   type: string
@@ -40,11 +35,11 @@ parameters:
 - name: targetBranchName
   displayName: Target Branch Name
   type: string
-  default: initial-setup
+  default: scaffold-repo
 
 variables:
-  user_email : kimani.mbugua@kimstrad.com
-  user_name: kimani.mbugua
+  user_email : kimani.m@someaddress.com
+  user_name: kimani.m
   template_root: cookiecutter
   config_dir: config
   config_file: template_settings.yaml
