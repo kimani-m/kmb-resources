@@ -1,0 +1,18 @@
+# Sample from https://docs.aws.amazon.com/codebuild/latest/userguide/sample-windows.html
+
+version: 0.2
+
+env:
+  variables:
+    SOLUTION: .\FSharpHelloWorld.sln
+    PACKAGE_DIRECTORY: .\packages
+    DOTNET_FRAMEWORK: 4.8
+
+phases:
+  build:
+    commands:
+      - '& nuget restore $env:SOLUTION -PackagesDirectory $env:PACKAGE_DIRECTORY'
+      - '& msbuild -p:FrameworkPathOverride="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v$env:DOTNET_FRAMEWORK" $env:SOLUTION'
+artifacts:
+  files:
+    - .\FSharpHelloWorld\bin\Debug\*
