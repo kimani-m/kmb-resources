@@ -1,6 +1,6 @@
 default_context:
-    project_name: "Data Project 1"
-    created_by: "Kimani Mbugua"
+    project_name: "Data Analytics"
+    created_by: "Kimani"
     version: "1.0.0"
     environment: "azure"
     target_platform: "databricks"
@@ -10,4 +10,5 @@ default_context:
     data_quality: "y"
     data_observability: "y"
     sample_data: "y"
+    placeholder_files: false
     target_schema: "dev"

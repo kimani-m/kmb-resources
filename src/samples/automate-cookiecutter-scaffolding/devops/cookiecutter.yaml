@@ -6,7 +6,7 @@ parameters:
   type: string
   default: datahub
 - name: templateRepoName
-  displayName: Template Project Name
+  displayName: Template Repo Name
   type: string
   default: cookiecutter-data-package
 - name: templateBranchRef
@@ -87,6 +87,7 @@ steps:
 
       echo "Build.SourcesDirectory:"
       echo "$(Build.SourcesDirectory)"
+  displayName: 'Display agent folder contents'
 
 - script: |
     cd $TARGET_BRANCH_NAME
@@ -102,7 +103,7 @@ steps:
     git fetch --all
     git merge -s recursive -X ours origin/$TARGET_BRANCH_NAME --allow-unrelated-histories
     git push -f --set-upstream origin $TARGET_BRANCH_NAME
-  displayName: 'Push new repository to Azure DevOps'
+  displayName: 'Push new repo to git branch'
   workingDirectory: $(Build.ArtifactStagingDirectory)
   env:
     SYSTEM_ACCESSTOKEN: $(System.AccessToken)

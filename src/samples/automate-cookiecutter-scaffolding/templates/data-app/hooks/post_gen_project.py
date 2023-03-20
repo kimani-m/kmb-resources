@@ -4,12 +4,14 @@ def main():
     print("RUNNING POST GENERATION...")
 
     root_dir = os.path.abspath(os.path.curdir)
-    environment = "{{ cookiecutter.environment }}".lower()    
-    setup_environment(root_dir, environment, drop_parent=True, debug=False)
+    dr = {{ cookiecutter.debug_run }}
+    pfs = {{ cookiecutter.placeholder_files }}
+    environment = "{{ cookiecutter.environment }}".lower() 
+    setup_environment(root_dir, environment, drop_parent=True, debug=dr, placeholder_file=pfs)
 
     return 0
 
-def setup_environment(root_dir, environment, drop_parent=False, debug=False):
+def setup_environment(root_dir, environment, drop_parent=False, debug=False, placeholder_file=True):
     module_list = []
 
     if environment == "aws":
@@ -29,6 +31,9 @@ def setup_environment(root_dir, environment, drop_parent=False, debug=False):
     
     if drop_parent:
         drop_parent_dir(environment)
+
+    if placeholder_file == True:
+        add_placeholder(root_dir, debug)
 
 def drop_modules(root_dir, module_list, debug=False):
     for root, dirs, files in os.walk(root_dir):
@@ -63,6 +68,20 @@ def drop_parent_dir(environment):
         sys.exit(3)
 
     return 0
+
+def add_placeholder(root_dir, debug=False):
+    for root, dirs, files in os.walk(root_dir):
+        for dir in dirs:
+            subdir = os.path.join(root, dir)
+            if not os.listdir(subdir):
+                placeholder_file_path = os.path.join(subdir, ".gitkeep")
+                with open(placeholder_file_path, 'w') as f:
+                    f.write(f"Placeholder file: {placeholder_file_path}")
+                if debug:
+                    print(f"Added placeholder file in {subdir}")
+            else:
+                if debug:
+                    print(f"{subdir} is not empty")
 
 if __name__ == '__main__':
     sys.exit(main())
