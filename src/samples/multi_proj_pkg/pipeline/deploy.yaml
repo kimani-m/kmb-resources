@@ -78,26 +78,28 @@ jobs:
       echo "$(Build.SourcesDirectory)"
     displayName: 'Display agent folder contents'
 
-  # - script: |
-  #     cd $(Agent.WorkFolder)/1/s/src/samples/multi_proj_pkg/dist
-  #     python -m pip install --upgrade pip
-  #     pip install twine
-  #     twine upload --repository-url https://pkgs.dev.azure.com/kimstrad/kmdata/_packaging/multiproj/pypi/upload/ multi_proj_pkg-*.whl  # Upload wheel to Azure Artifact feed
-  #   displayName: 'Publish to Artifact Feed'
-
   - task: TwineAuthenticate@1
     inputs:
       artifactFeed: kmdata/multiproj
     displayName: 'Authenticate Twine'
 
-  - script: |
-      cd $(Agent.WorkFolder)/1/s/src/samples/multi_proj_pkg
-      python -m pip install --upgrade pip
-      pip install twine keyring artifacts-keyring
-      python -m pip install --upgrade build setuptools twine
-      python -m twine upload --verbose -r multiproj --config-file $(PYPIRC_PATH) dist/*
+  - task: UniversalPackages@0
+    displayName: Publish a Universal Package
+    inputs:
+      command: publish
+      publishDirectory: '$(Agent.WorkFolder)/1/s/src/samples/multi_proj_pkg/dist'
+      vstsFeedPublish: 'kmdata/multiproj'
+      vstsFeedPackagePublish: 'multi_proj_pkg'
+      versionOption: custom
+      versionPublish: '1.0.0'
+      packagePublishDescription: 'Demo of multi project package'
+
+  # - script: |
+  #     cd $(Agent.WorkFolder)/1/s/src/samples/multi_proj_pkg
+  #     python -m pip install --upgrade pip
+  #     pip install twine keyring artifacts-keyring
+  #     python -m pip install --upgrade build setuptools twine
+  #     python -m twine upload --verbose -r multiproj --config-file $(PYPIRC_PATH) dist/*
   
-      # python -m twine upload -r insite-packages --repository-url https://pkgs.dev.azure.com/kimstrad/kmdata/_packaging/multiproj/pypi/upload/ --config-file $(PYPIRC_PATH) dist/*.whl
-  
-    displayName: 'Publish to Artifact Feed'
+  #   displayName: 'Publish to Artifact Feed'
 
