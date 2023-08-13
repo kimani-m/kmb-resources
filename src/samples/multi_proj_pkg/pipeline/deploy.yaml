@@ -91,7 +91,7 @@ jobs:
       vstsFeedPublish: 'kmdata/multiproj'
       vstsFeedPackagePublish: 'multi_proj_pkg'
       versionOption: custom
-      versionPublish: '1.0.0'
+      versionPublish: '1.0.1'
       packagePublishDescription: 'Demo of multi project package'
 
   # - script: |
