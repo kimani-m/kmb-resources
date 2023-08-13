@@ -35,13 +35,11 @@ jobs:
       echo "$(Build.SourcesDirectory)"
     displayName: 'Display agent folder contents'
 
-  - task: PublishBuildArtifacts@1
-    displayName: "Publish project"
+  - task: PublishPipelineArtifact@0
+    displayName: 'Publish pipeline artifact'
     inputs:
-      PathtoPublish: $(Build.ArtifactStagingDirectory)/src/samples/multi_proj_pkg/dist
-      ArtifactName: 'drop'
-      publishLocation: 'Container'
-    enabled: true
+      artifactName: 'drop'
+      targetPath: '$(Build.ArtifactStagingDirectory)'
 
 - job: DownloadAndTest
   displayName: 'Download and Test Wheel'
