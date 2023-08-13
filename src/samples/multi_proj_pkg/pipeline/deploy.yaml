@@ -57,5 +57,5 @@ jobs:
   - script: |
       python -m pip install --upgrade pip
       pip install twine
-      twine upload --repository-url https://pkgs.dev.azure.com/YOUR_ORG/YOUR_PROJECT/_packaging/YOUR_FEED/pypi/upload/ $(System.DefaultWorkingDirectory)/drop/\multi_proj_pkg-*.whl  # Upload wheel to Azure Artifact feed
+      twine upload --repository-url https://pkgs.dev.azure.com/kimstrad/_packaging/kmdata/pypi/upload/ $(System.DefaultWorkingDirectory)/drop/\multi_proj_pkg-*.whl  # Upload wheel to Azure Artifact feed
     displayName: 'Publish to Artifact Feed'
