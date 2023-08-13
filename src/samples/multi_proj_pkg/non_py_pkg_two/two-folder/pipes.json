@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-06-01/Microsoft.DataFactory.json",
+    "content": {
+      "name": "SamplePipeline",
+      "properties": {
+        "activities": [
+          {
+            "name": "CopyData",
+            "type": "Copy",
+            "inputs": [
+              {
+                "referenceName": "SourceDataset"
+              }
+            ],
+           
+            "typeProperties": {
+              "source": {
+                "type": "BlobSource"
+              },
+              "sink": {
+                "type": "BlobSink"
+              },
+              "copyBehavior": "PreserveHierarchy"
+            }
+          }
+        ],
+        "start": "2023-08-13T00:00:00Z",
+        "end": "2023-08-13T23:59:59Z",
+        "isPaused": false
+      }
+    }
+  }
+  

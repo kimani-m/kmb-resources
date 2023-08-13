@@ -1,3 +1,4 @@
-recursive-include non_py_pkg */*.json
+recursive-include non_py_pkg_one */*.json
+recursive-include non_py_pkg_two */*.json
 recursive-include demo_py_pkg */*.json
-recursive-exclude _validate */*.py
+recursive-exclude _debug */*.py

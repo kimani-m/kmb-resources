@@ -11,5 +11,7 @@ multi_proj_pkg.egg-info/PKG-INFO
 multi_proj_pkg.egg-info/SOURCES.txt
 multi_proj_pkg.egg-info/dependency_links.txt
 multi_proj_pkg.egg-info/top_level.txt
-non_py_pkg/config.json
-non_py_pkg/sample-folder/pipeline.json
+non_py_pkg_one/config.json
+non_py_pkg_one/one-folder/pipeline.json
+non_py_pkg_two/cluster.json
+non_py_pkg_two/two-folder/pipes.json

@@ -1,0 +1,27 @@
+{
+    "project_name": "My Data Platform",
+    "version": "1.0.0",
+    "customers": [
+      {
+        "name": "Customer B",
+        "id": "CUST002",
+        "settings": {
+          "data_source": "AWS S3",
+          "region": "us-west-2",
+          "access_key": "your_access_key_here",
+          "secret_key": "your_secret_key_here"
+        }
+      }
+    ],
+    "etl": {
+      "databricks": {
+        "cluster_id": "cluster123",
+        "notebook": "etl_job.py"
+      },
+      "airflow": {
+        "dag_id": "etl_pipeline",
+        "schedule": "0 0 * * *"
+      }
+    }
+  }
+  

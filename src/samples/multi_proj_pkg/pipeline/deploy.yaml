@@ -1,0 +1,61 @@
+trigger:
+- main  # Trigger the pipeline on changes to the main branch
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job: BuildAndPublish
+  displayName: 'Build, Test, and Publish Python Wheel'
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'  # Specify the Python version to use
+      addToPath: true
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install wheel
+      pip install -r requirements.txt  # Install project dependencies
+    displayName: 'Install Python and Dependencies'
+
+  - script: |
+      python setup.py bdist_wheel  # Build the wheel file
+    displayName: 'Build Wheel'
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)'  # Publish artifacts
+
+- job: DownloadAndTest
+  displayName: 'Download and Test Wheel'
+  dependsOn: BuildAndPublish
+  steps:
+  - download: current
+    artifact: drop
+
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      addToPath: true
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install check-wheel-contents
+      check-wheel-contents dist/
+    displayName: 'Test Wheel'
+
+- job: PublishToArtifactFeed
+  displayName: 'Publish to Azure Artifact Feed'
+  dependsOn: DownloadAndTest
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      addToPath: true
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install twine
+      twine upload --repository-url https://pkgs.dev.azure.com/YOUR_ORG/YOUR_PROJECT/_packaging/YOUR_FEED/pypi/upload/ $(System.DefaultWorkingDirectory)/drop/\multi_proj_pkg-*.whl  # Upload wheel to Azure Artifact feed
+    displayName: 'Publish to Artifact Feed'

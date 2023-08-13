@@ -14,8 +14,9 @@ if __name__ == "__main__":
     project_name = "multi_proj_pkg"
     version = "1.0.0"
     whl_dir = "dist"
+    output_dir = "output"
     wheel_file = f"{whl_dir}\{project_name}-{version}-py3-none-any.whl"
-    output_directory = os.path.join(current_directory, "output")
+    output_directory = os.path.join(current_directory, output_dir)
     # Clear the existing output directory
     if os.path.exists(output_directory):
         shutil.rmtree(output_directory)
