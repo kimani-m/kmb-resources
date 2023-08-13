@@ -87,12 +87,15 @@ jobs:
 
   - task: TwineAuthenticate@1
     inputs:
-      artifactFeed: kmdata
+      artifactFeed: kimstrad/kmdata
+    displayName: 'Authenticate Twine'
 
   - script: |
       cd $(Agent.WorkFolder)/1/s/src/samples/multi_proj_pkg
       python -m pip install --upgrade pip
-      pip install twine
-      python -m twine upload -r https://pkgs.dev.azure.com/kimstrad/_packaging/kmdata/pypi/upload/ --config-file $(PYPIRC_PATH) dist/*.whl
+      pip install twine keyring artifacts-keyring
+      python -m pip install --upgrade build setuptools twine
+      python -m twine upload -r insite-packages --repository-url https://pkgs.dev.azure.com/kimstrad/_packaging/kmdata/pypi/upload/ --config-file $(PYPIRC_PATH) dist/*.whl
+  
     displayName: 'Publish to Artifact Feed'
 
