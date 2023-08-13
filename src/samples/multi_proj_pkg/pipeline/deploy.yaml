@@ -18,6 +18,11 @@ jobs:
       pip install wheel
       # pip install -r requirements.txt  # Install project dependencies
     displayName: 'Install Python and Dependencies'
+
+  - script: |
+      cd src/samples/multi_proj_pkg
+      python setup.py bdist_wheel  # Build the wheel file
+    displayName: 'Build Wheel'
     
   - script: |
       echo "Structure of work folder of this pipeline:"
@@ -30,14 +35,13 @@ jobs:
       echo "$(Build.SourcesDirectory)"
     displayName: 'Display agent folder contents'
 
-  - script: |
-      cd src/samples/multi_proj_pkg
-      python setup.py bdist_wheel  # Build the wheel file
-    displayName: 'Build Wheel'
-
-  - task: PublishPipelineArtifact@1
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish project"
     inputs:
-      targetPath: '$(Build.ArtifactStagingDirectory)'  # Publish artifacts
+      PathtoPublish: $(Build.ArtifactStagingDirectory)
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+    enabled: true
 
 - job: DownloadAndTest
   displayName: 'Download and Test Wheel'
