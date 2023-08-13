@@ -95,7 +95,9 @@ jobs:
       python -m pip install --upgrade pip
       pip install twine keyring artifacts-keyring
       python -m pip install --upgrade build setuptools twine
-      python -m twine upload -r insite-packages --repository-url https://pkgs.dev.azure.com/kimstrad/_packaging/kmdata/pypi/upload/ --config-file $(PYPIRC_PATH) dist/*.whl
+      python -m twine upload --verbose -r kmdata --config-file $(PYPIRC_PATH) dist/*
+  
+      # python -m twine upload -r insite-packages --repository-url https://pkgs.dev.azure.com/kimstrad/_packaging/kmdata/pypi/upload/ --config-file $(PYPIRC_PATH) dist/*.whl
   
     displayName: 'Publish to Artifact Feed'
 
