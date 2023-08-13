@@ -35,6 +35,15 @@ jobs:
       echo "$(Build.SourcesDirectory)"
     displayName: 'Display agent folder contents'
 
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)'
+      Contents: |
+        **/*
+        !.git/**/*
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
   - task: PublishPipelineArtifact@0
     displayName: 'Publish pipeline artifact'
     inputs:
