@@ -1,0 +1,1 @@
+from .math_magic import guessing_game

@@ -1,0 +1,14 @@
+LICENSE.md
+MANIFEST.in
+README.md
+setup.py
+demo_py_pkg/__init__.py
+demo_py_pkg/libs/__init__.py
+demo_py_pkg/libs/greetings/__init__.py
+demo_py_pkg/libs/greetings/hello.py
+demo_py_pkg/libs/maths/__init__.py
+demo_py_pkg/libs/maths/math_magic.py
+multi_proj_pkg.egg-info/PKG-INFO
+multi_proj_pkg.egg-info/SOURCES.txt
+multi_proj_pkg.egg-info/dependency_links.txt
+multi_proj_pkg.egg-info/top_level.txt
