@@ -31,7 +31,7 @@ jobs:
     displayName: 'Display agent folder contents'
 
   - script: |
-      python setup.py bdist_wheel  # Build the wheel file
+      python src\samples\multi_proj_pkg\setup.py bdist_wheel  # Build the wheel file
     displayName: 'Build Wheel'
 
   - task: PublishPipelineArtifact@1
