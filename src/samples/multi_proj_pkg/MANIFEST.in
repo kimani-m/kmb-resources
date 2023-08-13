@@ -1,1 +1,3 @@
-recursive-exclude _validate/*
+recursive-include non_py_pkg */*.json
+recursive-include demo_py_pkg */*.json
+recursive-exclude _validate */*.py

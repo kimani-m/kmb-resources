@@ -1,1 +1,0 @@
-from .hello import get_greeting

@@ -18,20 +18,19 @@ def reinstall_wheel():
     run_subprocess(["python", "-m", "pip", "install", "./dist/multi_proj_pkg-1.0.0-py3-none-any.whl", "--force-reinstall"])
     print("Wheel reinstalled successfully!")
 
-def execute_program(sub_dir):
+def run_program(sub_dir, prog):
     root_dir = os.path.abspath(os.path.curdir)
     program_path = os.path.join(root_dir, sub_dir)
     os.chdir(program_path)
-    print(f"Program executed in {program_path}.")
-    run_subprocess(["python", "main.py"])
+    print(f"Program executed in {program_path}")
+    run_subprocess(["python", prog])
 
 if __name__ == "__main__":
     try:
         build_wheel()
         check_wheel_contents()
         reinstall_wheel()
-        execute_program("_validate")
-        print("Thank you for playing!")
+        run_program("_validate", "play.py")
         sys.exit(0)
     except Exception as e:
         print(f"An error occurred: {e}")
