@@ -38,7 +38,7 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: "Publish project"
     inputs:
-      PathtoPublish: $(Build.ArtifactStagingDirectory)
+      PathtoPublish: $(Build.ArtifactStagingDirectory)/src/samples/multi_proj_pkg/dist
       ArtifactName: 'drop'
       publishLocation: 'Container'
     enabled: true
