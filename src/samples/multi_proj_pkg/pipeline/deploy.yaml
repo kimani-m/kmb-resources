@@ -18,6 +18,17 @@ jobs:
       pip install wheel
       # pip install -r requirements.txt  # Install project dependencies
     displayName: 'Install Python and Dependencies'
+    
+  - script: |
+      echo "Structure of work folder of this pipeline:"
+      tree $(Agent.WorkFolder)/1
+
+      echo "Build.ArtifactStagingDirectory:" 
+      echo "$(Build.ArtifactStagingDirectory)"
+
+      echo "Build.SourcesDirectory:"
+      echo "$(Build.SourcesDirectory)"
+    displayName: 'Display agent folder contents'
 
   - script: |
       python setup.py bdist_wheel  # Build the wheel file
