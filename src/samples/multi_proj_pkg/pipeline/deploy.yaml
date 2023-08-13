@@ -78,9 +78,21 @@ jobs:
       echo "$(Build.SourcesDirectory)"
     displayName: 'Display agent folder contents'
 
+  # - script: |
+  #     cd $(Agent.WorkFolder)/1/s/src/samples/multi_proj_pkg/dist
+  #     python -m pip install --upgrade pip
+  #     pip install twine
+  #     twine upload --repository-url https://pkgs.dev.azure.com/kimstrad/_packaging/kmdata/pypi/upload/ multi_proj_pkg-*.whl  # Upload wheel to Azure Artifact feed
+  #   displayName: 'Publish to Artifact Feed'
+
+  - task: TwineAuthenticate@1
+    inputs:
+      artifactFeed: kmdata
+
   - script: |
-      cd $(Agent.WorkFolder)/1/s/src/samples/multi_proj_pkg/dist
+      cd $(Agent.WorkFolder)/1/s/src/samples/multi_proj_pkg
       python -m pip install --upgrade pip
       pip install twine
-      twine upload --repository-url https://pkgs.dev.azure.com/kimstrad/_packaging/kmdata/pypi/upload/ multi_proj_pkg-*.whl  # Upload wheel to Azure Artifact feed
+      python -m twine upload -r https://pkgs.dev.azure.com/kimstrad/_packaging/kmdata/pypi/upload/  dist/*.whl
     displayName: 'Publish to Artifact Feed'
+
