@@ -35,8 +35,6 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
     include_package_data=True,
-    package_dir={'multi_proj_pkg': 'multi_proj_pkg/demo_py_pkg'},
-    package_data={'multi_proj_pkg': ['*']},
     data_files=package_files(['non_py_pkg'])
 )
 
