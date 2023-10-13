@@ -4,6 +4,9 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 **/*/examples
 
+*.csv
+duck.db
+
 # User-specific files
 *.rsuser
 *.suo
@@ -13,6 +16,8 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+
+**/*/.vstreamlit
 
 # Mono auto generated files
 mono_crash.*
