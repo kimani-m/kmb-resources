@@ -30,4 +30,4 @@
 [issues-shield]: https://img.shields.io/github/issues/kimani-m/kmb-resources.svg?style=for-the-badge
 [issues-url]: https://github.com/kimani-m/kmb-resources/issues
 [license-shield]: https://img.shields.io/github/license/kimani-m/kmb-resources.svg?style=for-the-badge
-[license-url]: http://creativecommons.org/licenses/by/4.0/
+[license-url]: https://www.gnu.org/licenses/agpl-3.0.en.html
