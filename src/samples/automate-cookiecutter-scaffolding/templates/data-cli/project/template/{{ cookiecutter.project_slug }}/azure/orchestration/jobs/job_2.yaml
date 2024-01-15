@@ -1,0 +1,41 @@
+name: job_two
+description: This is job two configuration.
+workflow:
+  - mode: event # batch, streaming, event, hybrid (event and batch)
+  - stage: source
+    engine: adf
+    tasks:
+      - ingestion:
+        - event_type: data.database
+        - datasets: [dataset1, dataset2]
+  - stage: bronze
+    engine: databricks
+    tasks:
+      - data_quality:
+        - event_type: data.bronze.data_quality
+      - data_share:
+        - event_type: data.bronze.data_share
+      - data_integration:
+        - event_type: data.bronze.data_integration
+  - stage: silver
+    engine: adf
+    tasks:
+      - transformation:
+        - event_type: data.silver.transformation
+      - data_quality:
+        - event_type: data.silver.data_quality
+      - data_share:
+        - event_type: data.silver.data_share
+      - data_integration:
+        - event_type: data.silver.data_integration
+  - stage: gold
+    engine: adf
+    tasks:
+      - transformation:
+        - event_type: data.gold.transformation
+      - data_quality:
+        -event_type: data.gold.data_quality
+      - data_share:
+        - event_type: data.gold.data_share
+      - data_integration:
+        - event_type: data.gold.data_integrations

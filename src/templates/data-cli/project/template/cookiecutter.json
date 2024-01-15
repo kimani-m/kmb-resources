@@ -1,0 +1,20 @@
+{
+    "project_name": "Starter data project",
+    "project_slug": "{{ cookiecutter.project_name.lower().strip().replace(' project', '').replace(' ', '_').replace(':', '_').replace('-', '_').replace('!', '_')}}",
+    "version": "1.0.2",
+    "created_by": "",
+    "workstream": "data",
+    "description": "This is a starter data project",
+    "cloud_platform": ["azure", "aws"],
+    "devops": "y",
+    "ingestion": "y",
+    "transformation": "y",
+    "transform_target": ["databricks", "snowflake"],
+    "data_quality": "y",
+    "sharing": "y",
+    "usage_stats": true,
+    "sample_data": "n",
+    "placeholder_files": false,
+    "debug_run": false,
+    "target_schema": "dev"
+}

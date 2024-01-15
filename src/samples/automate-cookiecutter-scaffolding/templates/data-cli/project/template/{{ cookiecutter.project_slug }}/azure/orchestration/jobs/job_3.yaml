@@ -1,0 +1,44 @@
+name: job_three
+description: This is job three configuration.
+workflow:
+  - mode: mixed # batch, streaming, event, mixed (event and batch), dbx_dabs
+  - stage: source
+    engine: adf
+    tasks:
+      - ingestion:
+        - event_type: data.database
+        - datasets: [dataset1, dataset2]
+  - stage: bronze
+    engine: core
+    tasks:
+      - transformation:
+        - depends_on: source
+      - data_quality:
+        - depends_on: transformation
+      - data_share:
+        - depends_on: data_quality
+      - data_integration:
+        - depends_on: data_quality
+  - stage: silver
+    engine: core
+    tasks:
+      - transformation:
+        - depends_on: bronze_data_quality
+      - data_quality:
+        - depends_on: transformation
+      - data_share:
+        - depends_on: data_quality
+      - data_integration:
+        - depends_on: data_quality
+  - stage: gold
+    engine: core
+    tasks:
+      - transformation:
+        - depends_on: silver_data_quality
+      - data_quality:
+        - depends_on: transformation
+      - data_share:
+        - depends_on: data_quality
+      - data_integration:
+        - depends_on: data_quality
+

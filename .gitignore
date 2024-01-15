@@ -11,6 +11,21 @@
 *.userosscache
 *.sln.docstates
 
+**/*/build
+**/*/bin
+**/*/dist
+**/*/.conf
+**/*/.databricks
+**/*/.vscode
+**/*/*.egg-info
+**/*/scratch
+**/*/sample_cli
+
+/.conf
+/.databricks
+/.vscode
+/.pytest_cache
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

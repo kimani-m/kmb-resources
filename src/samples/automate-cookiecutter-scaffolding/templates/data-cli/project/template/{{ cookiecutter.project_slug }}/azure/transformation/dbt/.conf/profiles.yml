@@ -1,0 +1,33 @@
+config:
+  use_colors: true
+  send_anonymous_usage_stats: False
+  
+default:
+    target: {{ cookiecutter.target_schema }}
+    outputs:
+        {%- if cookiecutter.transform_target == "databricks" %}
+
+        catalog: null
+        host: {% raw %}"{{ env_var('DBT_ENV_SECRET_HOST') }}"{% endraw %}
+        http_path: {% raw %}"{{ env_var('DBT_ENV_SECRET_HTTP_PATH') }}"{% endraw %}
+        threads: 8
+        schema: {{ cookiecutter.target_schema }}
+        token: {% raw %}"{{ env_var('DBT_ENV_SECRET_TOKEN') }}"{% endraw %}
+        type: {{ cookiecutter.transform_target }}
+
+        {%- endif %}
+
+        {%- if cookiecutter.transform_target == "snowflake" %}
+
+        database: {% raw %}"{{ env_var('DBT_DB_NAME') }}"{% endraw %}
+        schema: {{ cookiecutter.target_schema }}
+        user: {% raw %}"{{ env_var('DBT_USER') }}"{% endraw %}
+        password: {% raw %}"{{ env_var('DBT_USER_PWD') }}"{% endraw %}
+        account: {% raw %}"{{ env_var('DBT_SF_ACCOUNT') }}"{% endraw %}
+        role: {% raw %}"{{ env_var('DBT_SF_ROLE') }}"{% endraw %}
+        warehouse: {% raw %}"{{ env_var('DBT_SF_WAREHOUSE') }}"{% endraw %}
+        client_session_keep_alive: False
+
+        {%- endif %}
+
+       

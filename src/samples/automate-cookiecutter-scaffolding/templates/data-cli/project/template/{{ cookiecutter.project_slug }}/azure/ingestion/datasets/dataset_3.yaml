@@ -1,0 +1,59 @@
+name: dataset3
+description: This is dataset 3 configuration.
+enabled: true
+type: file
+format: csv
+source:
+  - name: source_one
+  - connection: 
+    - name: blob-source-conn-str
+    - engine: adf # adf, databricks, airflow
+    - compute: AutoResolve # AutoResolve, AzureIntegrationRuntime, SelfHostedIntegrationRuntime
+    - type: blob # sql-server, oracle, mysql, postgresql, db2, teradata, snowflake
+  - operation:
+    - pre-process: false
+    - ingest-type: full # full, incremental, watermark
+    - ingest-recursively: true
+target:
+  - landing:
+    - file: 
+      - encoding: ISO-8859-1
+      - archive:
+        - enabled: true
+        - path: archive
+        - threshold: 30 days
+    - location: 
+      - type: adls # blob, adls, s3, gcs, sftp, ftp, http, https, db, api etc.
+      - container: container1
+      - directory: directory1
+  - bronze:
+    - mode: autoloader # autoloader, spark, sql, python, r, scala, java, c#, c++, go etc.
+    - load-type: merge
+    - column-list: "*"
+    - load-type: merge
+    - primary-key: [col1, col2]
+    - checks:
+      - sensitive: 
+        - enabled: true
+        - sensitive-cols: [col3, col4]
+      - deletion: 
+        - enabled: true
+        - include-cols: [col5, col6]
+        - exclude-cols: [col7, col8]
+      - duplicate:
+        - enabled: true
+        - quarantine-mode: retain_one # retain_one, retain_all, quarantine_all
+    - cloudFiles:
+      - useNotifications: false
+      - triggerType: batch # batch, streaming
+      - schemaEvolutionMode: none
+      - allowOverwrites: false
+      - fileOptions:
+        - encoding: ISO-8859-1
+        - header: true
+        - inferColumnTypes: true
+        - multiline: true
+        - delimiter: ","
+        - escape: \
+        - timestampFormat: dd/MM/yyyy
+      - validateOptions: true 

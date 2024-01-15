@@ -1,0 +1,8 @@
+name: job_4
+description: This is job four configuration.
+workflow:
+  - mode: dbx_dabs # batch, streaming, event, hybrid (event and batch), dbx_dabs
+  - config-path: databricks.yml
+
+
+

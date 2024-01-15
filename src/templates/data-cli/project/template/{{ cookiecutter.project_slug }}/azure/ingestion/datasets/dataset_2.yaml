@@ -1,0 +1,57 @@
+name: dataset2
+enabled: true
+description: This is dataset 2 configuration.
+type: table # file, db_table, api
+source:
+  - name: database_source_1
+  - connection: 
+    - name: dbt-source-conn-str
+    - type: sql-server # sql-server, oracle, mysql, postgresql, db2, teradata, snowflake
+    - engine: adf # adf, databricks, airflow
+    - compute: AutoResolve # AutoResolve, AzureIntegrationRuntime, SelfHostedIntegrationRuntime
+  - operation:
+      - type: watermark # full, incremental, watermark
+      - recursive: false
+      - pre-process: false
+target:
+  - landing:
+    - location: 
+      - type: adls # blob, adls, s3, gcs, sftp, ftp, http, https, db, api etc.
+      - container: container1
+      - directory: directory1
+      - archive:
+        - enabled: true
+        - file-path: archive
+        - threshold: 30 days
+  - bronze:
+    - mode: autoloader # autoloader, spark, sql, python, r, scala, java, c#, c++, go etc.
+    - load-type: merge
+    - column-list: "*"
+    - load-type: merge
+    - primary-key: [col1, col2]
+    - checks:
+      - sensitive: 
+        - enabled: true
+        - sensitive-cols: [col3, col4]
+      - deletion: 
+        - enabled: true
+        - include-cols: [col5, col6]
+        - exclude-cols: [col7, col8]
+      - duplicate:
+        - enabled: true
+        - quarantine-type: retain_one # retain_one, retain_all, quarantine_all
+    - cloudFiles:
+      - useNotifications: false
+      - triggerType: batch # batch, streaming
+      - schemaEvolutionMode: none
+      - allowOverwrites: false
+      - fileOptions:
+        - encoding: ISO-8859-1
+        - header: true
+        - inferColumnTypes: true
+        - multiline: true
+        - delimiter: ","
+        - escape: \
+        - timestampFormat: dd/MM/yyyy
+      - validateOptions: true 
+

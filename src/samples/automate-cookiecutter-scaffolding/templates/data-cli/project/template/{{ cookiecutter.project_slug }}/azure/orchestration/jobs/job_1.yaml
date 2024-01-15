@@ -1,0 +1,39 @@
+name: job_one
+description: This is job one configuration.
+workflow:
+  - mode: batch # batch, streaming, event, hybrid (event and batch)
+  - stage: source
+    engine: databricks
+    tasks:
+      - ingestion:
+        - datasets: [dataset1, dataset2]
+  - stage: bronze
+    tasks:
+      - transformation:
+        - depends_on: source
+      - data_quality:
+        - depends_on: transformation
+      - data_share:
+        - depends_on: data_quality
+      - data_integration:
+        - depends_on: data_quality
+  - stage: silver
+    tasks:
+      - transformation:
+        - depends_on: bronze_data_quality
+      - data_quality:
+        - depends_on: transformation
+      - data_share:
+        - depends_on: data_quality
+      - data_integration:
+        - depends_on: data_quality
+  - stage: gold
+    tasks:
+      - transformation:
+        - depends_on: silver_data_quality
+      - data_quality:
+        - depends_on: transformation
+      - data_share:
+        - depends_on: data_quality
+      - data_integration:
+        - depends_on: data_quality

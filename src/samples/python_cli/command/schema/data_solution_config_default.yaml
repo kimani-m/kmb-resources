@@ -1,0 +1,40 @@
+project_name: ''
+version: 1.0.4
+cloud_platform: ''
+workstream: ''
+description: ''
+resources:
+  iac:
+    custom: false
+    path: ''
+    format: ''
+  cicd:
+    custom: false
+    path: ''
+    format: ''
+  data_orchestrator:
+    description: ''
+    engine: ''
+  ingestion:
+    enabled: false
+    custom: false
+    description: ''
+    path: ''
+    config-format: ''
+    mode: ''
+    pre-process: ''
+    engine: ''
+  data_quality:
+    description: ''
+    zones: ''
+    format: ''
+  transformation:
+    enabled: false
+    description: ''
+    mode: ''
+    path: ''
+    engine: ''
+  sharing:
+    enabled: false
+    description: ''
+    engine: ''

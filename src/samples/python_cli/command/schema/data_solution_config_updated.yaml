@@ -1,0 +1,65 @@
+project_name: MyDataSolutionProject
+version: 1.0.4
+cloud_platform: Azure
+workstream: DataEngineering
+description: This is a sample Data Solution project configuration file.
+usage_stats:
+- telemetry: disabled
+resources:
+  iac:
+    description: Responsible for managing infrastructure as code.
+    custom: true
+    path: .devops\iac
+    format: arm
+  cicd:
+    description: Responsible for managing CI/CD pipelines.
+    custom: false
+    path: .devops\cicd
+    engine: azuredevops
+    format: ''
+  data_orchestrator:
+    enabled: false
+    description: Responsible for orchestrating the entire data pipeline.
+    mode: mixed
+    engine: hybrid_azure
+  ingestion:
+    enabled: true
+    custom: true
+    description: Responsible for collecting raw data from various sources.
+    mode: batch
+    path: ingestion
+    config-format: json
+    pre-process: false
+    engine: adf
+  data_quality:
+    description: Ensures data quality and integrity throughout the solution.
+    zones:
+    - bronze
+    - silver
+    - gold
+    format: ''
+  transformation:
+    enabled: false
+    description: Handles data processing and transformation.
+    mode: batch
+    path: transformation
+    engine: dbt
+  integration:
+    description: Manages data integration and merging from multiple sources.
+    format: mixed
+  sharing:
+    enabled: false
+    description: Facilitates sharing of processed data with stakeholders.
+    engine: snowflake
+  consumption:
+    description: Deals with data consumption by end-users or applications.
+    format: PowerBI
+targets:
+  dev:
+    description: Development environment.
+  tst:
+    description: Testing environment.
+  uat:
+    description: User acceptance testing environment.
+  prd:
+    description: Production environment.

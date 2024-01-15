@@ -1,0 +1,35 @@
+name: dataset
+description: This is has general dataset configuration.
+datasets:
+  enabled: true
+  operation:
+    - type: full # full, incremental, watermark
+    - recursive: true
+  landing:
+    - pre-process: false
+    - location: 
+      - type: adls # blob, adls, s3, gcs, sftp, ftp, http, https, db, api etc.
+      - container: container1
+    - file: 
+      - archive:
+        - enabled: true
+        - file-path: archive
+        - threshold: 30 days
+transformation:
+  - mode: autoloader # autoloader, spark, sql, python, r, scala, java, c#, c++, go etc.
+  - pre-process: false
+  - cloudFiles:
+    - useNotifications: false
+    - triggerType: batch # batch, streaming
+    - schemaEvolutionMode: none
+    - allowOverwrites: false
+    - fileOptions:
+      - encoding: ISO-8859-1
+      - header: true
+      - inferColumnTypes: true
+      - multiline: true
+      - delimiter: ","
+      - escape: \
+      - timestampFormat: dd/MM/yyyy
+    - validateOptions: true
+

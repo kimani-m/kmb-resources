@@ -1,0 +1,64 @@
+project_name: MyDataSolutionProject
+version: 1.0
+cloud_platform: Azure
+workstream: DataEngineering
+description: This is a sample Data Solution project configuration file.
+
+usage_stats:
+  - telemetry: disabled
+
+resources:
+  iac:
+    description: Responsible for managing infrastructure as code.
+    custom: true
+    path: .devops\iac
+    format: arm # terraform, pulumi, arm, bicep etc.
+  cicd:
+    description: Responsible for managing CI/CD pipelines.
+    custom: false
+    path: .devops\cicd
+    engine: azuredevops # azuredevops, github, gitlab etc.
+  data_orchestrator:
+    enabled: false
+    description: Responsible for orchestrating the entire data pipeline.
+    mode: mixed # batch, event, hybrid
+    engine: hybrid_azure # adf, databricks, airflow, hybrid_aws, hybrid_azure etc.
+  ingestion:
+    enabled: true
+    custom: true
+    description: Responsible for collecting raw data from various sources.
+    mode: batch # batch, streaming, hybrid
+    path: ingestion
+    config-format: json
+    pre-process: false
+    engine: adf # adf, databricks, airflow, mixed etc.
+  data_quality:
+    description: Ensures data quality and integrity throughout the solution.
+    zones: [bronze, silver, gold]
+  transformation:
+    enabled: false
+    description: Handles data processing and transformation.
+    mode: batch # batch, streaming, hybrid
+    path: transformation
+    engine: dbt # dbt, databricks etc.
+  integration:
+    description: Manages data integration and merging from multiple sources.
+    format: mixed # dbt, databricks etc. 
+  sharing:
+    enabled: false
+    description: Facilitates sharing of processed data with stakeholders.
+    engine: snowflake # snowflake, databricks etc.
+  consumption:
+    description: Deals with data consumption by end-users or applications.
+    format: PowerBI # powerbi, tableau, databricks, mixed etc.
+    
+targets:
+    dev:
+      description: Development environment.
+    tst:
+      description: Testing environment.
+    uat:
+      description: User acceptance testing environment.
+    prd:
+      description: Production environment.
+
