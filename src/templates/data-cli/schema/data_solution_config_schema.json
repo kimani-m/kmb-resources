@@ -23,7 +23,7 @@
                     "properties" : {
                         "custom" : {"type" : "boolean"},
                         "path" : {"type" : "string"},
-                        "format" : {"type" : "string"}
+                        "engine" : {"type" : "string"}
                     },
                     "required": ["custom", "path", "engine"]
                 },
