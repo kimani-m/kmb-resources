@@ -83,6 +83,13 @@
                 }
             },
             "required": ["data_orchestrator", "ingestion"]
+        },
+        "targets" : {
+            "type" : "object",
+            "properties" : {
+                "description" : {"type" : "string"}
+            },
+            "required": ["description"]
         }
     },
     "required": ["project_name", "version", "cloud_platform", "workstream", "resources", "description", "targets"]
