@@ -1,5 +1,5 @@
 project_name: {{ cookiecutter.project_name }}
-version: 1.0.2
+version: {{ cookiecutter.version}}
 cloud_platform: {{ cookiecutter.cloud_platform }}
 workstream: {{ cookiecutter.workstream }}
 description: {{ cookiecutter.description }}

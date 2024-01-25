@@ -1,7 +1,7 @@
 default_context:
     project_name: "Data Solution"
     created_by: "Kimani"
-    version: "1.0.2"
+    version: "1.1.0"
     cloud_platform: "azure"
     workstream: "DataEngineering"
     description: "This is a sample Data Solution project configuration file."

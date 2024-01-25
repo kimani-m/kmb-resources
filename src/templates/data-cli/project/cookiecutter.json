@@ -1,7 +1,7 @@
 {
     "project_name": "Starter data project",
     "project_slug": "{{ cookiecutter.project_name.lower().strip().replace(' project', '').replace(' ', '_').replace(':', '_').replace('-', '_').replace('!', '_')}}",
-    "version": "1.0.2",
+    "version": "1.1.0",
     "created_by": "",
     "workstream": "data",
     "description": "This is a starter data project",
