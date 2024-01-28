@@ -1,0 +1,96 @@
+{
+    "type" : "object",
+    "properties" : {
+        "project_name" : {"type" : "string"},
+        "version" : {"type" : "string"},
+        "cloud_platform" : {"type" : "string"},
+        "workstream" : {"type" : "string"},
+        "description" : {"type" : "string"},
+        "resources" : {
+            "type" : "object",
+            "properties" : {
+                "iac" : {
+                    "type" : "object",
+                    "properties" : {
+                        "custom" : {"type" : "boolean"},
+                        "path" : {"type" : "string"},
+                        "format" : {"type" : "string"}
+                    },
+                    "required": ["custom", "path", "format"]
+                },
+                "cicd" : {
+                    "type" : "object",
+                    "properties" : {
+                        "custom" : {"type" : "boolean"},
+                        "path" : {"type" : "string"},
+                        "engine" : {"type" : "string"}
+                    },
+                    "required": ["custom", "path", "engine"]
+                },
+                "data_orchestrator" : {
+                    "type" : "object",
+                    "properties" : {
+                        "description" : {"type" : "string"},
+                        "engine" : {"type" : "string"}
+                    },
+                    "required": ["description", "engine"]
+                },
+                "ingestion" : {
+                    "type" : "object",
+                    "properties" : {
+                        "enabled" : {"type" : "boolean"},
+                        "custom" : {"type" : "boolean"},
+                        "description" : {"type" : "string"},
+                        "path" : {"type" : "string"},
+                        "config-format" : {"type" : "string"},
+                        "mode" : {"type" : "string"},
+                        "pre-process" : {"type" : "boolean"},
+                        "engine" : {"type" : "string"}
+                    },
+                    "required": ["enabled", "custom", "description", "path", "config-format", "mode", "engine"]
+                },
+                "data_quality" : {
+                    "type" : "object",
+                    "properties" : {
+                        "description" : {"type" : "string"},
+                        "zones" : {
+                            "type" : "array",
+                            "items" : {"type" : "string"}
+                        },
+                        "format" : {"type" : "string"}
+                    },
+                    "required": ["description", "format"]
+                },
+                "transformation" : {
+                    "type" : "object",
+                    "properties" : {
+                        "enabled" : {"type" : "boolean"},
+                        "description" : {"type" : "string"},
+                        "mode" : {"type" : "string"},
+                        "path" : {"type" : "string"},
+                        "engine" : {"type" : "string"}
+                    },
+                    "required": ["enabled", "description", "mode", "path", "engine"]
+                },
+                "sharing" : {
+                    "type" : "object",
+                    "properties" : {
+                        "enabled" : {"type" : "boolean"},
+                        "description" : {"type" : "string"},
+                        "engine" : {"type" : "string"}
+                    },
+                    "required": ["enabled", "description", "engine"]
+                }
+            },
+            "required": ["data_orchestrator", "ingestion"]
+        },
+        "targets" : {
+            "type" : "object",
+            "properties" : {
+                "description" : {"type" : "string"}
+            },
+            "required": ["description"]
+        }
+    },
+    "required": ["project_name", "version", "cloud_platform", "workstream", "resources", "description", "targets"]
+}

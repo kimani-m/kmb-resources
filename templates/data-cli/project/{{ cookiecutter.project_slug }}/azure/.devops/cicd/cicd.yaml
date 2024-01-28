@@ -1,0 +1,31 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - "main"
+stages:
+  - stage: Build
+    displayName: Build stage
+    jobs:
+      - job: Build
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "3.9.9"
+  - stage: Build
+    displayName: Build stage
+    jobs:
+      - job: Deploy
+        steps:
+          {%- if cookiecutter.ingestion == "y" %}
+          - task: PublishADFTask@0
+            displayName: "Publish ADF"
+          {%- endif %}
+          - task: databricksDeployScripts@0
+            displayName: "Deploy Databricks notebooks"
+          {%- if cookiecutter.transformation == "y" %}
+          - task: UsePythonVersion@0
+            displayName: "Validate dbt model"
+            inputs:
+              versionSpec: "3.9.9"
+          {%- endif %}

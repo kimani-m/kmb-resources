@@ -1,0 +1,70 @@
+project_name: {{ cookiecutter.project_name }}
+version: {{ cookiecutter.version}}
+cloud_platform: {{ cookiecutter.cloud_platform }}
+workstream: {{ cookiecutter.workstream }}
+description: {{ cookiecutter.description }}
+
+usage_stats:
+  - telemetry: {{ cookiecutter.usage_stats }}
+
+resources:
+  {%- if cookiecutter.transformation == "y" %}
+  iac:
+    description: Responsible for managing infrastructure as code.
+    custom: true
+    path: .devops\iac
+    format: arm # terraform, pulumi, arm, bicep etc.
+    config-path: .devops\iac\iac_config.yaml
+  cicd:
+    description: Responsible for managing CI/CD pipelines.
+    custom: false
+    path: .devops\cicd
+    engine: azuredevops # azuredevops, github, gitlab etc.
+  {%- endif %}
+  data_orchestrator:
+    enabled: false
+    description: Responsible for orchestrating the entire data pipeline.
+    mode: mixed # batch, event, hybrid
+    engine: hybrid_azure # adf, databricks, airflow, hybrid_aws, hybrid_azure etc.
+  ingestion:
+    enabled: true
+    custom: true
+    description: Responsible for collecting raw data from various sources.
+    mode: batch # batch, streaming, hybrid
+    path: ingestion
+    config-format: json
+    pre-process: false
+    engine: adf # adf, databricks, airflow, mixed etc.
+  {%- if cookiecutter.data_quality == "y" %}
+  data_quality:
+    description: Ensures data quality and integrity throughout the solution.
+    zones: 
+    - bronze
+    - silver
+    - gold
+    format: dbt
+  {%- endif %}
+  {%- if cookiecutter.transformation == "y" %}
+  transformation:
+    enabled: false
+    description: Handles data processing and transformation.
+    mode: batch # batch, streaming, hybrid
+    path: transformation
+    engine: dbt # dbt, databricks etc.
+  {%- endif %}
+  integration:
+    description: Manages data integration and merging from multiple sources.
+    format: mixed # dbt, databricks etc. 
+  {%- if cookiecutter.sharing == "y" %}
+  sharing:
+    enabled: false
+    description: Facilitates sharing of processed data with stakeholders.
+    engine: snowflake # snowflake, databricks etc.
+  {%- endif %}
+  consumption:
+    description: Deals with data consumption by end-users or applications.
+    format: PowerBI # powerbi, tableau, databricks, mixed etc.
+
+targets:
+  dev:
+    description: Development environment.
