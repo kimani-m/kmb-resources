@@ -12,26 +12,45 @@
                 "iac" : {
                     "type" : "object",
                     "properties" : {
-                        "custom" : {"type" : "boolean"},
                         "path" : {"type" : "string"},
-                        "format" : {"type" : "string"}
+                        "format" : {"type" : "string"},
+                        "custom" : {
+                            "type" : "object",
+                            "properties" : {
+                                "enabled" : {"type" : "boolean"},
+                                "custom-path" : {"type" : "string"}
+                            }
+                        }
                     },
                     "required": ["custom", "path", "format"]
                 },
                 "cicd" : {
                     "type" : "object",
                     "properties" : {
-                        "custom" : {"type" : "boolean"},
+                        "custom" : {
+                            "type" : "object",
+                            "properties" : {
+                                "enabled" : {"type" : "boolean"},
+                                "custom-path" : {"type" : "string"}
+                            }
+                        },
                         "path" : {"type" : "string"},
                         "engine" : {"type" : "string"}
                     },
                     "required": ["custom", "path", "engine"]
                 },
-                "data_orchestrator" : {
+                "orchestration" : {
                     "type" : "object",
                     "properties" : {
                         "description" : {"type" : "string"},
-                        "engine" : {"type" : "string"}
+                        "engine" : {"type" : "string"},
+                        "custom" : {
+                            "type" : "object",
+                            "properties" : {
+                                "enabled" : {"type" : "boolean"},
+                                "custom-path" : {"type" : "string"}
+                            }
+                        }
                     },
                     "required": ["description", "engine"]
                 },
@@ -39,7 +58,13 @@
                     "type" : "object",
                     "properties" : {
                         "enabled" : {"type" : "boolean"},
-                        "custom" : {"type" : "boolean"},
+                        "custom" : {
+                            "type" : "object",
+                            "properties" : {
+                                "enabled" : {"type" : "boolean"},
+                                "custom-path" : {"type" : "string"}
+                            }
+                        },
                         "description" : {"type" : "string"},
                         "path" : {"type" : "string"},
                         "config-format" : {"type" : "string"},
@@ -65,12 +90,19 @@
                     "type" : "object",
                     "properties" : {
                         "enabled" : {"type" : "boolean"},
+                        "custom" : {
+                            "type" : "object",
+                            "properties" : {
+                                "enabled" : {"type" : "boolean"},
+                                "custom-path" : {"type" : "string"}
+                            }
+                        },
                         "description" : {"type" : "string"},
                         "mode" : {"type" : "string"},
                         "path" : {"type" : "string"},
                         "engine" : {"type" : "string"}
                     },
-                    "required": ["enabled", "description", "mode", "path", "engine"]
+                    "required": ["enabled", "custom", "description", "mode", "path", "engine"]
                 },
                 "sharing" : {
                     "type" : "object",
@@ -82,7 +114,7 @@
                     "required": ["enabled", "description", "engine"]
                 }
             },
-            "required": ["data_orchestrator", "ingestion"]
+            "required": ["orchestration", "ingestion"]
         },
         "targets" : {
             "type" : "object",
