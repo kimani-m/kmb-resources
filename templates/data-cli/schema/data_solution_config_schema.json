@@ -12,26 +12,66 @@
                 "iac" : {
                     "type" : "object",
                     "properties" : {
-                        "custom" : {"type" : "boolean"},
                         "path" : {"type" : "string"},
-                        "format" : {"type" : "string"}
+                        "format" : {"type" : "string"},
+                        "custom" : {
+                            "type" : "object",
+                            "properties" : {
+                                "enabled" : {"type" : "boolean"},
+                                "custom-path" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                },
+                                "custom-file" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                }
+                            }
+                        }
                     },
-                    "required": ["custom", "path", "format"]
+                    "required": ["path", "format"]
                 },
                 "cicd" : {
                     "type" : "object",
                     "properties" : {
-                        "custom" : {"type" : "boolean"},
+                        "custom" : {
+                            "type" : "object",
+                            "properties" : {
+                                "enabled" : {"type" : "boolean"},
+                                "custom-path" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                },
+                                "custom-file" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                }
+                            }
+                        },
                         "path" : {"type" : "string"},
                         "engine" : {"type" : "string"}
                     },
-                    "required": ["custom", "path", "engine"]
+                    "required": ["path", "engine"]
                 },
-                "data_orchestrator" : {
+                "orchestration" : {
                     "type" : "object",
                     "properties" : {
                         "description" : {"type" : "string"},
-                        "engine" : {"type" : "string"}
+                        "engine" : {"type" : "string"},
+                        "custom" : {
+                            "type" : "object",
+                            "properties" : {
+                                "enabled" : {"type" : "boolean"},
+                                "custom-path" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                },
+                                "custom-file" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                }
+                            }
+                        }
                     },
                     "required": ["description", "engine"]
                 },
@@ -39,7 +79,20 @@
                     "type" : "object",
                     "properties" : {
                         "enabled" : {"type" : "boolean"},
-                        "custom" : {"type" : "boolean"},
+                        "custom" : {
+                            "type" : "object",
+                            "properties" : {
+                                "enabled" : {"type" : "boolean"},
+                                "custom-path" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                },
+                                "custom-file" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                }
+                            }
+                        },
                         "description" : {"type" : "string"},
                         "path" : {"type" : "string"},
                         "config-format" : {"type" : "string"},
@@ -47,7 +100,7 @@
                         "pre-process" : {"type" : "boolean"},
                         "engine" : {"type" : "string"}
                     },
-                    "required": ["enabled", "custom", "description", "path", "config-format", "mode", "engine"]
+                    "required": ["enabled", "description", "path", "config-format", "mode", "engine"]
                 },
                 "data_quality" : {
                     "type" : "object",
@@ -65,12 +118,26 @@
                     "type" : "object",
                     "properties" : {
                         "enabled" : {"type" : "boolean"},
+                        "custom" : {
+                            "type" : "object",
+                            "properties" : {
+                                "enabled" : {"type" : "boolean"},
+                                "custom-path" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                },
+                                "custom-file" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                }
+                            }
+                        },
                         "description" : {"type" : "string"},
                         "mode" : {"type" : "string"},
                         "path" : {"type" : "string"},
                         "engine" : {"type" : "string"}
                     },
-                    "required": ["enabled", "description", "mode", "path", "engine"]
+                    "required": ["enabled", "description", "mode", "engine"]
                 },
                 "sharing" : {
                     "type" : "object",
@@ -82,7 +149,7 @@
                     "required": ["enabled", "description", "engine"]
                 }
             },
-            "required": ["data_orchestrator", "ingestion"]
+            "required": ["orchestration", "ingestion"]
         },
         "targets" : {
             "type" : "object",
