@@ -18,11 +18,18 @@
                             "type" : "object",
                             "properties" : {
                                 "enabled" : {"type" : "boolean"},
-                                "custom-path" : {"type" : "string"}
+                                "custom-path" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                },
+                                "custom-file" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                }
                             }
                         }
                     },
-                    "required": ["custom", "path", "format"]
+                    "required": ["path", "format"]
                 },
                 "cicd" : {
                     "type" : "object",
@@ -31,13 +38,20 @@
                             "type" : "object",
                             "properties" : {
                                 "enabled" : {"type" : "boolean"},
-                                "custom-path" : {"type" : "string"}
+                                "custom-path" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                },
+                                "custom-file" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                }
                             }
                         },
                         "path" : {"type" : "string"},
                         "engine" : {"type" : "string"}
                     },
-                    "required": ["custom", "path", "engine"]
+                    "required": ["path", "engine"]
                 },
                 "orchestration" : {
                     "type" : "object",
@@ -48,7 +62,14 @@
                             "type" : "object",
                             "properties" : {
                                 "enabled" : {"type" : "boolean"},
-                                "custom-path" : {"type" : "string"}
+                                "custom-path" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                },
+                                "custom-file" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                }
                             }
                         }
                     },
@@ -62,7 +83,14 @@
                             "type" : "object",
                             "properties" : {
                                 "enabled" : {"type" : "boolean"},
-                                "custom-path" : {"type" : "string"}
+                                "custom-path" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                },
+                                "custom-file" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                }
                             }
                         },
                         "description" : {"type" : "string"},
@@ -72,7 +100,7 @@
                         "pre-process" : {"type" : "boolean"},
                         "engine" : {"type" : "string"}
                     },
-                    "required": ["enabled", "custom", "description", "path", "config-format", "mode", "engine"]
+                    "required": ["enabled", "description", "path", "config-format", "mode", "engine"]
                 },
                 "data_quality" : {
                     "type" : "object",
@@ -94,7 +122,14 @@
                             "type" : "object",
                             "properties" : {
                                 "enabled" : {"type" : "boolean"},
-                                "custom-path" : {"type" : "string"}
+                                "custom-path" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                },
+                                "custom-file" : {
+                                    "type" : "array",
+                                    "items" : {"type" : "string"}
+                                }
                             }
                         },
                         "description" : {"type" : "string"},
@@ -102,7 +137,7 @@
                         "path" : {"type" : "string"},
                         "engine" : {"type" : "string"}
                     },
-                    "required": ["enabled", "custom", "description", "mode", "path", "engine"]
+                    "required": ["enabled", "description", "mode", "engine"]
                 },
                 "sharing" : {
                     "type" : "object",
