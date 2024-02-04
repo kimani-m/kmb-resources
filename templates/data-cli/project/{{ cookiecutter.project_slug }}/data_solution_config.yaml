@@ -8,24 +8,29 @@ usage_stats:
   - telemetry: {{ cookiecutter.usage_stats }}
 
 resources:
-  {%- if cookiecutter.transformation == "y" %}
+  {%- if cookiecutter.iac == "y" %}
   iac:
     description: Responsible for managing infrastructure as code.
     custom: true
-    path: .devops\iac
+    path: iac
     format: arm # terraform, pulumi, arm, bicep etc.
     config-path: .devops\iac\iac_config.yaml
+  {%- endif %}
+  {%- if cookiecutter.cicd == "y" %}
   cicd:
     description: Responsible for managing CI/CD pipelines.
     custom: false
-    path: .devops\cicd
+    path: cicd
     engine: azuredevops # azuredevops, github, gitlab etc.
   {%- endif %}
-  data_orchestrator:
+  {%- if cookiecutter.orchestration == "y" %}
+  orchestration:
     enabled: false
     description: Responsible for orchestrating the entire data pipeline.
     mode: mixed # batch, event, hybrid
     engine: hybrid_azure # adf, databricks, airflow, hybrid_aws, hybrid_azure etc.
+  {%- endif %}
+  {%- if cookiecutter.ingestion == "y" %}
   ingestion:
     enabled: true
     custom: true
@@ -35,6 +40,7 @@ resources:
     config-format: json
     pre-process: false
     engine: adf # adf, databricks, airflow, mixed etc.
+  {%- endif %}
   {%- if cookiecutter.data_quality == "y" %}
   data_quality:
     description: Ensures data quality and integrity throughout the solution.
@@ -52,9 +58,11 @@ resources:
     path: transformation
     engine: dbt # dbt, databricks etc.
   {%- endif %}
+  {%- if cookiecutter.integration == "y" %}
   integration:
     description: Manages data integration and merging from multiple sources.
     format: mixed # dbt, databricks etc. 
+  {%- endif %}
   {%- if cookiecutter.sharing == "y" %}
   sharing:
     enabled: false

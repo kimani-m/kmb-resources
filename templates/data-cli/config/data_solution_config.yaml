@@ -11,19 +11,19 @@ resources:
   iac:
     description: Responsible for managing infrastructure as code.
     custom: true
-    path: .devops\iac
+    path: iac
     format: arm # terraform, pulumi, arm, bicep etc.
     config-file: iac_config.yaml
   cicd:
     description: Responsible for managing CI/CD pipelines.
     custom: false
-    path: .devops\cicd
+    path: cicd
     engine: azuredevops # azuredevops, github, gitlab etc.
-  data_orchestrator:
+  orchestration:
     enabled: true
     custom: false
     description: Responsible for orchestrating the entire data pipeline.
-    jobs-path: orchestration\jobs
+    jobs-path: jobs
   ingestion:
     enabled: true
     custom: false

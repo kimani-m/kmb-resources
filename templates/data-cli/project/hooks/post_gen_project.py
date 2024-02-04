@@ -18,8 +18,10 @@ def setup_cloud_platform(root_dir, cloud_platform, drop_parent=False, debug=Fals
         module_list.append("azure")
     if cloud_platform == "azure":
         module_list.append("aws")
-    if "{{ cookiecutter.devops }}".lower() == "n":
-        module_list.append(".devops")
+    if "{{ cookiecutter.iac }}".lower() == "n":
+        module_list.append(".iac")
+    if "{{ cookiecutter.cicd }}".lower() == "n":
+        module_list.append(".cicd")
     if "{{ cookiecutter.ingestion }}".lower() == "n":
         module_list.extend(["ingestion", "airflow"])
     if "{{ cookiecutter.transformation }}".lower() == "n":
