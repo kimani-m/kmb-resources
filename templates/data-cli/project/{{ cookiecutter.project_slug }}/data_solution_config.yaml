@@ -31,7 +31,7 @@ resources:
     enabled: false
     custom:
       enabled: true
-      path: orchestration
+      path: job
     description: Responsible for orchestrating the entire data pipeline.
     mode: mixed # batch, event, hybrid
     engine: hybrid_azure # adf, databricks, airflow, hybrid_aws, hybrid_azure etc.
@@ -41,7 +41,7 @@ resources:
     enabled: true
     custom: 
       enabled: true
-      path: ingestion
+      path: adf
     description: Responsible for collecting raw data from various sources.
     mode: batch # batch, streaming, hybrid
     config-format: json
