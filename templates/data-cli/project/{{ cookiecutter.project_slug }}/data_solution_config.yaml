@@ -10,15 +10,16 @@ usage_stats:
 resources:
   {%- if cookiecutter.iac == "y" %}
   iac:
+    enabled: true
     description: Responsible for managing infrastructure as code.
     custom: 
       enabled: true
       path: .devops\iac
     format: arm # terraform, pulumi, arm, bicep etc.
-    path: .devops\iac\iac_config.yaml
   {%- endif %}
   {%- if cookiecutter.cicd == "y" %}
   cicd:
+    enabled: true
     description: Responsible for managing CI/CD pipelines.
     custom: 
       enabled: true
