@@ -1,6 +1,6 @@
 {
     "dataset": [],
-    "job": [],
+    "group": [],
     "adf": ["datasets", "integrationRuntime", "linkedServices", "pipelines", "triggers"],
     "databricks": []
 }
