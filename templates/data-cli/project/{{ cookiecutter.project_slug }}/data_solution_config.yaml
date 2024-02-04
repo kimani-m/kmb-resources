@@ -14,7 +14,7 @@ resources:
     description: Responsible for managing infrastructure as code.
     custom: 
       enabled: true
-      path: .devops\iac
+      path: core
     format: arm # terraform, pulumi, arm, bicep etc.
   {%- endif %}
   {%- if cookiecutter.cicd == "y" %}
@@ -23,7 +23,7 @@ resources:
     description: Responsible for managing CI/CD pipelines.
     custom: 
       enabled: true
-      path: .devops\cicd
+      path: core
     engine: azuredevops # azuredevops, github, gitlab etc.
   {%- endif %}
   {%- if cookiecutter.orchestration == "y" %}
