@@ -55,7 +55,7 @@ resources:
     enabled: false
     description: Handles data processing and transformation.
     mode: batch # batch, streaming, hybrid
-    path: transformation
+    path: dbt
     engine: dbt # dbt, databricks etc.
   {%- endif %}
   {%- if cookiecutter.integration == "y" %}
@@ -72,7 +72,5 @@ resources:
   consumption:
     description: Deals with data consumption by end-users or applications.
     format: PowerBI # powerbi, tableau, databricks, mixed etc.
-
 targets:
-  dev:
     description: Development environment.
