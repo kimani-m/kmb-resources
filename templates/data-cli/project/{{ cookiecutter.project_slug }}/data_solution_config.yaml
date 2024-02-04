@@ -5,25 +5,30 @@ workstream: {{ cookiecutter.workstream }}
 description: {{ cookiecutter.description }}
 
 resources:
-  {%- if cookiecutter.iac == "y" %}
-  iac:
-    enabled: true
-    description: Responsible for managing infrastructure as code.
-    custom: false
-    path: iac
-    format: arm # terraform, pulumi, arm, bicep etc.
-  {%- endif %}
   {%- if cookiecutter.cicd == "y" %}
   cicd:
     enabled: true
     description: Responsible for managing CI/CD pipelines.
-    custom: false
-    path: cicd
+    custom: 
+      enabled: true
+      path: cicd
     engine: azuredevops # azuredevops, github, gitlab etc.
+  {%- endif %}
+  {%- if cookiecutter.iac == "y" %}
+  iac:
+    enabled: true
+    description: Responsible for managing infrastructure as code.
+    custom: 
+      enabled: true
+      path: iac
+    format: arm # terraform, pulumi, arm, bicep etc.
   {%- endif %}
   {%- if cookiecutter.orchestration == "y" %}
   orchestration:
     enabled: false
+    custom: 
+      enabled: true
+      path: orchestration
     description: Responsible for orchestrating the entire data pipeline.
     mode: mixed # batch, event, hybrid
     engine: hybrid_azure # adf, databricks, airflow, hybrid_aws, hybrid_azure etc.
@@ -31,10 +36,11 @@ resources:
   {%- if cookiecutter.ingestion == "y" %}
   ingestion:
     enabled: true
-    custom: true
+    custom: 
+      enabled: true
+      path: ingestion
     description: Responsible for collecting raw data from various sources.
     mode: batch # batch, streaming, hybrid
-    path: ingestion
     config-format: json
     pre-process: false
     engine: adf # adf, databricks, airflow, mixed etc.
@@ -51,11 +57,11 @@ resources:
   {%- if cookiecutter.transformation == "y" %}
   transformation:
     enabled: false
-    custom: true
+    custom: 
+      enabled: true
+      path: dbt
     description: Handles data processing and transformation.
     mode: batch # batch, streaming, hybrid
-    path: transformation
-    engine: dbt # dbt, databricks etc.
   {%- endif %}
   {%- if cookiecutter.integration == "y" %}
   integration:
@@ -71,6 +77,5 @@ resources:
   consumption:
     description: Deals with data consumption by end-users or applications.
     format: PowerBI # powerbi, tableau, databricks, mixed etc.
-
 targets:
     description: Development environment.
