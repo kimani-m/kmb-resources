@@ -1,5 +1,0 @@
-mode: batch
-path: ingestion
-config-format: json
-pre-process: false
-engine: adf
