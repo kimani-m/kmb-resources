@@ -1,0 +1,27 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - "main"
+stages:
+  - stage: Build
+    displayName: Build stage
+    jobs:
+      - job: Build
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "3.10"
+  - stage: Build
+    displayName: Build stage
+    jobs:
+      - job: Deploy
+        steps:
+          - task: PublishADFTask@0
+            displayName: "Publish ADF"
+          - task: databricksDeployScripts@0
+            displayName: "Deploy Databricks notebooks"
+          - task: UsePythonVersion@0
+            displayName: "Validate dbt model"
+            inputs:
+              versionSpec: "3.9.9"
