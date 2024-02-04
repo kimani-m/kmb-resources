@@ -15,7 +15,6 @@ default_context:
     orchestration: "y"
     integration: "y"
     sharing: "y"
-    usage_stats: true
     sample_data: "y"
     placeholder_files: false
     debug_run: false

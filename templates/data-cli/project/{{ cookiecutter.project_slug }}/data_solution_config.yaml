@@ -4,20 +4,18 @@ cloud_platform: {{ cookiecutter.cloud_platform }}
 workstream: {{ cookiecutter.workstream }}
 description: {{ cookiecutter.description }}
 
-usage_stats:
-  - telemetry: {{ cookiecutter.usage_stats }}
-
 resources:
   {%- if cookiecutter.iac == "y" %}
   iac:
+    enabled: true
     description: Responsible for managing infrastructure as code.
-    custom: true
+    custom: false
     path: iac
     format: arm # terraform, pulumi, arm, bicep etc.
-    config-path: .devops\iac\iac_config.yaml
   {%- endif %}
   {%- if cookiecutter.cicd == "y" %}
   cicd:
+    enabled: true
     description: Responsible for managing CI/CD pipelines.
     custom: false
     path: cicd
@@ -53,6 +51,7 @@ resources:
   {%- if cookiecutter.transformation == "y" %}
   transformation:
     enabled: false
+    custom: true
     description: Handles data processing and transformation.
     mode: batch # batch, streaming, hybrid
     path: transformation
@@ -74,5 +73,4 @@ resources:
     format: PowerBI # powerbi, tableau, databricks, mixed etc.
 
 targets:
-  dev:
     description: Development environment.
