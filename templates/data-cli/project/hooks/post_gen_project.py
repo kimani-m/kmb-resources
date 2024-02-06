@@ -1,7 +1,10 @@
-import sys, os, shutil
+import sys, os, shutil, logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 def main():
-    print("RUNNING POST GENERATION...")
+    logger.INFO("RUNNING POST GENERATION...")
 
     root_dir = os.path.abspath(os.path.curdir)
     dr = "{{ cookiecutter.debug_run }}"
@@ -45,16 +48,16 @@ def drop_modules(root_dir, module_list, debug=False):
             if any(item in file for item in module_list):
                 file_to_remove = os.path.join(root, file)
                 if debug:
-                    print(f"Removing file: {file_to_remove}")
+                    logger.DEBUG(f"Removing file: {file_to_remove}")
                 os.remove(os.path.join(root, file))
         for dir in dirs:
             if any(item in dir for item in module_list):
                 dir_to_remove = os.path.join(root, dir)
                 if debug:
-                    print(f"Removing folder: {dir_to_remove}")
+                    logger.DEBUG(f"Removing folder: {dir_to_remove}")
                 shutil.rmtree(os.path.join(root, dir))
                 if debug:
-                    print(f"Removed folder: {dir_to_remove}")
+                    logger.DEBUG(f"Removed folder: {dir_to_remove}")
 
 def drop_parent_dir(cloud_platform):
     destination = os.path.abspath(os.path.curdir)
@@ -70,7 +73,7 @@ def drop_parent_dir(cloud_platform):
         # drop the parent folder
         shutil.rmtree(cloud_platform)
     else:
-        print(f"ERROR(3): '{cloud_platform}' does not exist")
+        logger.ERROR(f"ERROR(3): '{cloud_platform}' does not exist")
         sys.exit(3)
 
     return 0
@@ -84,10 +87,10 @@ def add_placeholder(root_dir, debug=False):
                 with open(placeholder_file_path, 'w') as f:
                     f.write(f"Placeholder file: {placeholder_file_path}")
                 if debug:
-                    print(f"Added placeholder file in {subdir}")
+                    logger.DEBUG(f"Added placeholder file in {subdir}")
             else:
                 if debug:
-                    print(f"{subdir} is not empty")
+                    logger.DEBUG(f"{subdir} is not empty")
 
 if __name__ == '__main__':
     sys.exit(main())
