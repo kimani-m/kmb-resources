@@ -12,26 +12,22 @@ resources:
   iac:
     enabled: true
     description: Responsible for managing infrastructure as code.
-    custom: 
-      enabled: true
-      path: core
+    custom: true
+    path: core
     format: arm # terraform, pulumi, arm, bicep etc.
   {%- endif %}
   {%- if cookiecutter.cicd == "y" %}
   cicd:
     enabled: true
     description: Responsible for managing CI/CD pipelines.
-    custom: 
-      enabled: true
-      path: core
+    custom: true
+    path: core
     engine: azuredevops # azuredevops, github, gitlab etc.
   {%- endif %}
   {%- if cookiecutter.orchestration == "y" %}
   orchestration:
     enabled: false
-    custom:
-      enabled: true
-      path: job
+    custom: true
     description: Responsible for orchestrating the entire data pipeline.
     mode: mixed # batch, event, hybrid
     engine: hybrid_azure # adf, databricks, airflow, hybrid_aws, hybrid_azure etc.
@@ -39,13 +35,11 @@ resources:
   {%- if cookiecutter.ingestion == "y" %}
   ingestion:
     enabled: true
-    custom: 
-      enabled: true
-      path: adf
+    custom: true
+    path: adf
     description: Responsible for collecting raw data from various sources.
     mode: batch # batch, streaming, hybrid
     config-format: json
-    pre-process: false
     engine: adf # adf, databricks, airflow, mixed etc.
   {%- endif %}
   {%- if cookiecutter.data_quality == "y" %}
@@ -60,9 +54,7 @@ resources:
   {%- if cookiecutter.transformation == "y" %}
   transformation:
     enabled: false
-    custom: 
-      enabled: true
-      path: dbt
+    path: dbt
     description: Handles data processing and transformation.
     mode: batch # batch, streaming, hybrid
     engine: dbt # dbt, databricks etc.
